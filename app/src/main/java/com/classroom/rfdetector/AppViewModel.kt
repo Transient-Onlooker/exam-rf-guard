@@ -11,6 +11,7 @@ import com.classroom.rfdetector.core.DeviceTracker
 import com.classroom.rfdetector.core.DistanceClass
 import com.classroom.rfdetector.core.GeigerController
 import com.classroom.rfdetector.core.RfObservation
+import com.classroom.rfdetector.core.RefreshCadence
 import com.classroom.rfdetector.core.ScanSession
 import com.classroom.rfdetector.core.SignalPresence
 import com.classroom.rfdetector.core.SignalSnapshot
@@ -185,7 +186,7 @@ class AppViewModel(private val app: Context) : ViewModel() {
         refreshJob = scope.launch {
             while (isActive) {
                 refresh()
-                delay(100)
+                delay(RefreshCadence.intervalMs(baselineSet.value, geigerOn.value))
             }
         }
     }
